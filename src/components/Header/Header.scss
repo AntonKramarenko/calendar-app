@@ -1,0 +1,13 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 4rem;
+    border: 1px solid black;
+
+    &__dateSelect{
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+    }
+}

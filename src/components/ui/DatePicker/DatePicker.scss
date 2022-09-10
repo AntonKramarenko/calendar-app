@@ -1,0 +1,29 @@
+.datePicker {
+    position: relative;
+    &__header{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 50px;
+        height: 30px;
+        border: 1px solid black;
+        border-radius: 5px;
+    
+        & svg {
+            width: 20px;
+            height: 20px;
+        }
+    }
+
+
+    &__body{
+        border: 1px solid black;
+        background: black;
+        width: 8rem;
+        position: absolute;
+        right: 0;
+        padding: 10px;
+        display: flex;
+        justify-content: space-between;
+    }
+}
