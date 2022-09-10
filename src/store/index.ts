@@ -1,13 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import selectDate from './selectDate';
-
+import events from './events';
+import modalWindow from './modalWindow';
 
 
 
 export const store = configureStore({
 	reducer: {
-		selectDate
+		selectDate,
+		events,
+		modalWindow
 	}
 });
 
