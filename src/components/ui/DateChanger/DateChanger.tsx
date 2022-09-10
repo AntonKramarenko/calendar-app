@@ -17,6 +17,8 @@ export const DateChanger = () => {
 		dispatch(setPrevMonth());
 	};
 	const monthNext = () => {
+		console.log(1);
+        
 		dispatch(setNextMonth());
 	};
 

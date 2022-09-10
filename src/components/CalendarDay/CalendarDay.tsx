@@ -1,13 +1,19 @@
 import React from 'react';
+import { useAppSelector } from '../../store';
 import './CalendarDay.scss';
 
 
 interface ICalendarDay{
-    item: number
+    item: number,
+    currentDate?: number
 }
 
-export const CalendarDay: React.FC<ICalendarDay> = ({item}) => {
+export const CalendarDay: React.FC<ICalendarDay> = ({item,currentDate}) => {
+	
+
 	return (
-		<li className='calendarDay'>{new Date(item).getDate()}</li>
+		<li className={currentDate === item ?'calendarDay calendarDay__today' : 'calendarDay'}>
+			{new Date(item).getDate()}
+		</li>
 	);
 };

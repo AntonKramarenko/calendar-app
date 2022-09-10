@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState:any = new Date().getTime();
+
+const initialState:number = 0;
 
 export const selectDateSlice = createSlice({
 	name: 'selectDate',
@@ -8,20 +9,19 @@ export const selectDateSlice = createSlice({
 	reducers: {
 		setNextMonth(state){
 			const newDate = new Date(state);
-
-			return new Date(newDate.getFullYear(),newDate.getMonth()+1).getTime();
-			
-			
+			console.log(newDate);
+            
+			return new Date(newDate.getFullYear(),newDate.getMonth()+1,1).getTime();
 		},
 		setPrevMonth(state){
 			const newDate = new Date(state);
-
-			return new Date(newDate.getFullYear(),newDate.getMonth()-1).getTime();
-				
-			
+			return new Date(newDate.getFullYear(),newDate.getMonth()-1,1).getTime();
+		},
+		setSelectDate(state, actions){
+			return actions.payload;
 		}
 	}
 });
 
-export const {setNextMonth, setPrevMonth } = selectDateSlice.actions;
+export const {setNextMonth, setPrevMonth,setSelectDate } = selectDateSlice.actions;
 export default selectDateSlice.reducer;

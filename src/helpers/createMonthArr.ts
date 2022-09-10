@@ -22,8 +22,6 @@ const generateWeeks = (datesArr: number[]) =>{
 		month.push(week);
 		week = [];
 	}
-
-	;
   
 	return validateWeeks(month);
 };
@@ -36,9 +34,8 @@ const validateWeeks = (monthArr:[]) =>{
 	const month = lastDay.getMonth();
 	const daysInMonth = new Date(year, month , 0).getDate();
 
-
 	for (let i = lastWeek.length; i < 7; i++) {
-		lastWeek.push(new Date(year,month, daysInMonth+i ).getTime());
+		lastWeek.push(new Date(year,month, daysInMonth+i+1 ).getTime());
 	}
     
 	return monthArr;

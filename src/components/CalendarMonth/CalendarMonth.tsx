@@ -5,24 +5,39 @@ import { CalendarDay } from '../CalendarDay';
 import './CalendarMonth.scss';
 
 export const CalendarMonth = () => {
-	const [ monthArr, setMonthArr ] = useState<number[]>([]);
-
+	const [ monthArr, setMonthArr ] = useState<[]>([]);
 	const selectDate = useAppSelector(state => state.selectDate);
 
 	useEffect(() => {
 		setMonthArr(createMonthArr(selectDate));
 	}, [ selectDate ]);
     
-
-	console.log(monthArr);
     
+	const dayMiliseconds = () =>{
+		const date = new Date();
 
-    
+		const dateObg = {
+			year: date.getFullYear(),
+			month: date.getMonth(),
+			day: date.getDate()
+		};
+		return new Date(dateObg.year, dateObg.month, dateObg.day).getTime();
+	};
+
+	const currentDate = dayMiliseconds();
+
+
 	return (
 		<div  className='calendarMonth'>
-			<ul className='calendarMonth__month'>
-				{/* {monthArr.map((item:number) => <CalendarDay item={item} key={item}/> )} */}
-			</ul>
+			<div className='calendarMonth__month'>
+				{monthArr.map((weeks:number[]) => {
+					return (
+						<ul className='calendarMonth__week'>
+							{weeks.map((day:number) => <CalendarDay item={day} key={day} currentDate={currentDate}/> )}
+						</ul>
+					);})
+				}
+			</div>
 		</div>
 	);
 };

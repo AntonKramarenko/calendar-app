@@ -1,7 +1,15 @@
 .calendarMonth{
     &__month{
         display: grid;
+        gap: 10px;
+        height: 90vh;
+    }
+
+    &__week{
+        display: grid;
         grid-template-columns: repeat(7,1fr);
         gap: 10px;
+
+
     }
 }

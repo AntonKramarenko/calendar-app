@@ -1,4 +1,12 @@
+@import '../../styles/colors.scss';
+
 .calendarDay{
-border: 1px solid black;
-border-radius: 5px;
+    display: flex;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 100%;    
+
+    &__today{
+        background: $color-secondary-light;
+    }
 }
