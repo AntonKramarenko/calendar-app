@@ -42,6 +42,11 @@ export const AddEventWindow = () => {
 	const onSubmit = (data: any) =>{
 		const selectDateArr = data.data.split('-');
 		const selectDate = new Date(selectDateArr[0], selectDateArr[1]-1, selectDateArr[2]);
+		const currentDate = new Date();
+
+		if(selectDate.getTime() < currentDate.getTime()){
+			return setError('data', { type: 'custom', message: 'The selected date is in the past' });
+		}
 
 		if(id.length){
 			dispatch(updateEvent({
@@ -81,19 +86,19 @@ export const AddEventWindow = () => {
 			{id.length>0 && createAt && <h5 className='addEventWindow__subtitle'>Created at: {createAt}</h5>}
 
 			<form onSubmit={handleSubmit(onSubmit)} className='addEventWindow__form'>
-				<input  {...register('title', { required: true })} placeholder='Title goes here' className='addEventWindow__input input-title' />
-				{errors.title && <span>Title is required</span>}
+				<input  {...register('title', { required: 'Title is required' })} placeholder='Title goes here' className='addEventWindow__input input-title' />
+				{errors.title?.message && <span className='addEventWindow__errorMessage'>{`${ errors.title?.message }`}</span>}
 
 				<textarea  {...register('description')} placeholder='Description' className='addEventWindow__input input-description' />
 
 				<div className='addEventWindow__timeshtamp'>
 					<div className='addEventWindow__date'>
-                    date
-						<input {...register('data', { required: true })} type='date' />
-						{errors.data && <span>Date is required</span>}
+						<span>Date</span>
+						<input {...register('data', { required: 'Date is requared' })} type='date' />
+						{errors.data?.message && <span className='addEventWindow__errorMessage'>{`${ errors.data?.message }`}</span>}
 					</div>
 					<div className='addEventWindow__time'>
-                    time
+						<span>Time</span>
 						<input {...register('time')} type='time' />
 					</div>
 				</div> 

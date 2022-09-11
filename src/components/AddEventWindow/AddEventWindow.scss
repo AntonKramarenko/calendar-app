@@ -19,6 +19,10 @@
         flex-direction: column;
     }
 
+    &__errorMessage{
+        font-size: 0.8rem;
+    }
+
     &__input{
         font-size: 1.1rem;
         background: inherit;
@@ -33,7 +37,6 @@
         height: 18vh;
     }
 
-
     &__timeshtamp{
         height: 100px;
         margin-top: 30px;
@@ -45,6 +48,7 @@
     &__date{
         display: flex;
         flex-direction: column;
+        max-width: 8rem;
     }
 
     &__time{
