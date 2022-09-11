@@ -1,25 +1,41 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAppSelector } from '../../store';
 import { IEvent } from '../../types/types';
+import { EventItem } from '../ui/EventItem';
 import './CalendarDay.scss';
 
 
 interface ICalendarDay{
-    item: number,
+    thisDay: number,
     currentDate?: number,
-	events: IEvent[] | undefined
+	events: IEvent[] 
 }
 
-export const CalendarDay: React.FC<ICalendarDay> = ({item,currentDate,events}) => {
-
-	const date = new Date(item);
-	const day = date.getDate();
-
+export const CalendarDay: React.FC<ICalendarDay> = ({thisDay,currentDate,events}) => {
+	const [ dayEvent, setDayEvent ] = useState<IEvent[]>([]);
+	const date = new Date(thisDay);
+	const daynumber = date.getDate();
+	const nameDay = date.toLocaleDateString('en-US', { weekday: 'long' });; 
 	
+	useEffect(() => {
+		if(events !== undefined && events.length){
+			setDayEvent(events.filter(event => event.data === thisDay));
+		}
+	}, [ events ]);
 
 	return (
-		<li className={currentDate === item ?'calendarDay calendarDay__today' : 'calendarDay'}>
-			{day}
+		<li className={currentDate === thisDay ?'calendarDay calendarDay__today' : 'calendarDay'}>
+			<div className='calendarDay__info'>
+				<span className='calendarDay__nameDay'>{nameDay}</span>
+				<span className='calendarDay__day'>{daynumber}</span>
+			</div>
+			{dayEvent.length 
+				? <ul className='calendarDay__eventList'>
+					{dayEvent.map(event => <EventItem key={event.id} event={event}/>)}
+				  </ul>
+				: null
+			}
+
 		</li>
 	);
 };

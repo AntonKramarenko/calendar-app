@@ -1,0 +1,12 @@
+@import '../../../styles/colors.scss';
+
+.eventItem{
+    cursor:pointer;
+    font-size: 0.8rem;
+    background-color: $color-secondary;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 5px 0;
+    list-style-type: none;
+    text-transform: capitalize;
+}

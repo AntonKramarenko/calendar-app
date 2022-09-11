@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useLocation, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store';
 import { addEvent } from '../../store/events';
 import { isVisibleModal } from '../../store/modalWindow';
@@ -9,6 +10,7 @@ export const AddEventWindow = () => {
 	const dispatch = useAppDispatch();
 	const { register, handleSubmit, watch, setError, setValue, formState: { errors } } = useForm();
 
+  
 	const onSubmit = (data: any) =>{
 		const selectDateArr = data.data.split('-');
 		const selectDate = new Date(selectDateArr[0], selectDateArr[1]-1, selectDateArr[2]);

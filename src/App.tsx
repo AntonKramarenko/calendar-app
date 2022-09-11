@@ -14,12 +14,10 @@ function App() {
 		<div className='app'>
 			{showModalWindow && <ModalWindow><AddEventWindow/></ModalWindow>}
 			<Routes>
-				<Route path='/calendar/' element={<CalendarPage/>} />
-				<Route path='calendar/:id' element={<div>modal</div>} />
-				<Route path='*' element={ <Navigate to='/calendar'/>}/>
+				<Route  path='/' element={<CalendarPage/>} />
+				<Route path=':id'  element={<CalendarPage/>}/>
+				<Route path='*' element={ <Navigate to='/'/>}/>
 			</Routes>
-
-			
 		</div>
 	);
 }
