@@ -12,7 +12,7 @@ export const ModalWindow = ({children}:any) => {
 	const handleClick = (e:any)=> {
 		e.preventDefault();
 		dispatch(isVisibleModal());
-		navigate('/');
+		navigate('/calendar');
 	};
 
 	return (

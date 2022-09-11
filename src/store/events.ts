@@ -9,9 +9,28 @@ export const eventsSlice = createSlice({
 	reducers: {
 		addEvent(state, actions){
 			state.push(actions.payload);
+		},
+		removeEvent(state, actions){
+			return state.filter(event => event.id !== parseInt(actions.payload));
+		},
+		updateEvent(state, actions){
+			const {id,data, description, time, title } = actions.payload;
+
+			 state.map(event => {
+				if(event.id  === parseInt(id)){
+					event.data = data;
+					event.title = title;
+					event.description = description;
+					event.time = time;
+					return event;
+				}else {
+					return event;
+				}
+			});
+			
 		}
 	}
 });
 
-export const { addEvent } = eventsSlice.actions;
+export const { addEvent,removeEvent,updateEvent } = eventsSlice.actions;
 export default eventsSlice.reducer;

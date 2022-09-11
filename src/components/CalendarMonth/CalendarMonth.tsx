@@ -32,6 +32,7 @@ export const CalendarMonth = () => {
 			return eventsArr;
 		}
 	};
+	
 
 	return (
 		<div  className='calendarMonth'>

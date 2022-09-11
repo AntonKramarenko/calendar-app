@@ -14,7 +14,7 @@ export const EventItem:React.FC<IEventItem> = ({event}) => {
 	const dispatch = useAppDispatch();
 
 	const clickHandler = () =>{
-		navigate(`/${ event.id }`);
+		navigate(`/calendar/${ event.id }`);
 		dispatch(isVisibleModal());
 	};
 	return (

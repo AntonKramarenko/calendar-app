@@ -8,6 +8,12 @@
     display: flex;
     flex-direction: column;
 
+    &__subtitle{
+        font-size: 0.8rem;
+        margin: 5px 0; 
+        color: grey;
+    }
+
     &__form{
         display: flex;
         flex-direction: column;

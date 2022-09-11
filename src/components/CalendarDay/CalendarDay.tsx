@@ -18,8 +18,10 @@ export const CalendarDay: React.FC<ICalendarDay> = ({thisDay,currentDate,events}
 	const nameDay = date.toLocaleDateString('en-US', { weekday: 'long' });; 
 	
 	useEffect(() => {
-		if(events !== undefined && events.length){
+		if( events.length){
 			setDayEvent(events.filter(event => event.data === thisDay));
+		}else{
+			setDayEvent([]);
 		}
 	}, [ events ]);
 
