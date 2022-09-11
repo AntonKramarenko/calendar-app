@@ -9,7 +9,7 @@ interface IEventItem {
     event: IEvent
 }
 
-export const EventItem:React.FC<IEventItem> = ({event}) => {
+export const EventItem:React.FC<IEventItem> = React.memo(({event}) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -17,7 +17,6 @@ export const EventItem:React.FC<IEventItem> = ({event}) => {
 		navigate(`/calendar/${ event.id }`);
 		dispatch(isVisibleModal());
 	};
-	return (
-		<li className='eventItem' onClick={clickHandler}>{event.title}</li>
-	);
-};
+
+	return <li className='eventItem' onClick={clickHandler}>{event.title}</li>;
+});

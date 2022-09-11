@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { IEvent } from '../types/types';
 
 const initialState:IEvent[] = [];
@@ -30,7 +30,6 @@ export const eventsSlice = createSlice({
 					return event;
 				}
 			});
-			
 		}
 	}
 });

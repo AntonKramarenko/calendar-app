@@ -1,37 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { useAppSelector } from '../../store';
 import { createMonthArr } from '../../helpers/createMonthArr';
 import { dayMiliseconds } from '../../helpers/dayInMiliseconds';
-import { useAppSelector } from '../../store';
-import { IEvent } from '../../types/types';
 import { CalendarDay } from '../CalendarDay';
+import { IEvent } from '../../types/types';
 import './CalendarMonth.scss';
+import { filterEvents } from '../../helpers/filterEvents';
 
-export const CalendarMonth = () => {
-
-	const selectDate = useAppSelector(state => state.selectDate);
-	const events = useAppSelector(state => state.events);
+export const CalendarMonth:React.FC = React.memo(() => {
 	const [ monthArr, setMonthArr ] = useState([]);
 	const [ currentMonthEvent, setCurrentMonthEvent  ] = useState<IEvent[]>([]);
+	const selectDate = useAppSelector(state => state.selectDate);
+	const events = useAppSelector(state => state.events);
 	const currentDate = dayMiliseconds();
+	
+	const createMonth = useMemo(() => createMonthArr(selectDate), [ selectDate ]);
+	const filterEventsArr = useMemo(() => filterEvents(events,monthArr ), [ events,monthArr ]);
 
 	useEffect(() => {
-		setCurrentMonthEvent(filterEvents(events));
+		setCurrentMonthEvent(filterEventsArr);
 	}, [ monthArr,events ]);
 	
 	useEffect(() => {
-		setMonthArr(createMonthArr(selectDate));
+		setMonthArr(createMonth);
 	}, [ selectDate ]);
 
-	const filterEvents =(eventsArr:IEvent[]) =>{
-		if(monthArr.length){
-			const startMonthDay = monthArr[0][0];
-			const lastMonthDay = monthArr[monthArr.length-1][6];
-			return eventsArr.filter(event => startMonthDay < event.data && event.data< lastMonthDay );
-		}else {
-			return eventsArr;
-		}
-	};
-	
 	return (
 		<div  className='calendarMonth'>
 			<div className='calendarMonth__month'>
@@ -45,4 +38,4 @@ export const CalendarMonth = () => {
 			</div>
 		</div>
 	);
-};
+});

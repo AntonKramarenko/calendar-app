@@ -4,10 +4,9 @@ import { Header } from '../../components/Header';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { setEvents } from '../../store/events';
 import { setSelectDate } from '../../store/selectDate';
-
 import './CalendarPage.scss';
 
-export const CalendarPage = React.memo(() => {	
+export const CalendarPage:React.FC = React.memo(() => {	
 	const state = useAppSelector(state => state);
 	const dispatch = useAppDispatch();
 

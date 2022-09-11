@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import './DateChanger.scss';
+import React from 'react';
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../../store';
 import { setNextMonth, setPrevMonth } from '../../../store/selectDate';
+import './DateChanger.scss';
 
-export const DateChanger = () => {
-	
+export const DateChanger:React.FC = React.memo(() => {
 	const selectDate = useAppSelector(state => state.selectDate);
 	const dispatch = useAppDispatch();
 
@@ -13,12 +12,8 @@ export const DateChanger = () => {
 	const monthFullName = date.toLocaleString('en-US', { month: 'long' });
 	const year = date.getFullYear();
 
-	const monthPrev = () => {
-		dispatch(setPrevMonth());
-	};
-	const monthNext = () => {        
-		dispatch(setNextMonth());
-	};
+	const monthPrev = () => dispatch(setPrevMonth());
+	const monthNext = () => dispatch(setNextMonth());
 
 	return (
 		<div className='dateChanger'>
@@ -27,12 +22,4 @@ export const DateChanger = () => {
 			<IoChevronForwardOutline onClick={monthNext}/>
 		</div>
 	);
-};
-
-
-// useEffect(() => {
-// 	console.log(new Date(selectDate));
-	
-// 	// setDate(new Date (selectDate));
-// }, [ selectDate ]);
-
+});

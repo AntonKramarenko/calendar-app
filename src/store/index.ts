@@ -4,8 +4,6 @@ import selectDate from './selectDate';
 import events from './events';
 import modalWindow from './modalWindow';
 
-
-
 export const store = configureStore({
 	reducer: {
 		selectDate,

@@ -1,23 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { dayMiliseconds } from '../../helpers/dayInMiliseconds';
-import { dayInString } from '../../helpers/dayInString';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { IoTrashOutline } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../store';
 import { addEvent, removeEvent, updateEvent } from '../../store/events';
 import { isVisibleModal } from '../../store/modalWindow';
+import { dayInString } from '../../helpers/dayInString';
 import { IEvent } from '../../types/types';
 import './AddEventWindow.scss';
-import { IoTrashOutline } from 'react-icons/io5';
 
 
-export const AddEventWindow = () => {
-	const navigate = useNavigate();
+export const AddEventWindow: React.FC = React.memo(() => {
+	const [ eventInfo, setInfo ] = useState<IEvent>();
 	const dispatch = useAppDispatch();
 	const events = useAppSelector(state => state.events);
-	const [ eventInfo, setInfo ] = useState<IEvent>();
-	const { register, handleSubmit, watch, setError, setValue, formState: { errors } } = useForm();
+	const { register, handleSubmit, setError, setValue, formState: { errors } } = useForm();
 	const {pathname} = useLocation();
+	const navigate = useNavigate();
+
 	const id = pathname.replace('/calendar/', '').replace('/calendar', '');
 	const curentDate = dayInString(new Date().getTime());
 	const createAt = new Date(parseInt(id)).toLocaleString();
@@ -56,7 +56,6 @@ export const AddEventWindow = () => {
 				description: data.description,
 				time: data.time
 			}));
-
 		}else{
 			dispatch(addEvent({
 				id: new Date().getTime(),
@@ -109,4 +108,4 @@ export const AddEventWindow = () => {
 			</form>
 		</div>
 	);
-};
+});

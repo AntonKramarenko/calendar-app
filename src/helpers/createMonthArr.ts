@@ -1,8 +1,6 @@
 export const createMonthArr =(data:number)=>{
 	const datesArr = generateDates(data);
-
 	const monthArr  = generateWeeks(datesArr);
-
 	return monthArr;
 };
 

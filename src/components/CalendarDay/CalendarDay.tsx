@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useAppSelector } from '../../store';
-import { IEvent } from '../../types/types';
+import React, { useEffect, useMemo, useState } from 'react';
 import { EventItem } from '../ui/EventItem';
+import { IEvent } from '../../types/types';
 import './CalendarDay.scss';
-
 
 interface ICalendarDay{
     thisDay: number,
@@ -11,18 +9,17 @@ interface ICalendarDay{
 	events: IEvent[] 
 }
 
-export const CalendarDay: React.FC<ICalendarDay> = ({thisDay,currentDate,events}) => {
+export const CalendarDay: React.FC<ICalendarDay> = React.memo(({thisDay,currentDate,events}) => {
 	const [ dayEvent, setDayEvent ] = useState<IEvent[]>([]);
-	const date = new Date(thisDay);
+
+	const filterEvents = useMemo(() => events.filter(event => event.data === thisDay), [ events ]);
+
+	const date = useMemo(() => new Date(thisDay), [ thisDay ]);
 	const daynumber = date.getDate();
 	const nameDay = date.toLocaleDateString('en-US', { weekday: 'long' });; 
 	
 	useEffect(() => {
-		if( events.length){
-			setDayEvent(events.filter(event => event.data === thisDay));
-		}else{
-			setDayEvent([]);
-		}
+		events.length ? setDayEvent(filterEvents) : setDayEvent([]);
 	}, [ events ]);
 
 	return (
@@ -37,7 +34,6 @@ export const CalendarDay: React.FC<ICalendarDay> = ({thisDay,currentDate,events}
 				  </ul>
 				: null
 			}
-
 		</li>
 	);
-};
+});
