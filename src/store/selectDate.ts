@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 
-const initialState:number = 0;
+const initialState:number = new Date().getTime();
 
 export const selectDateSlice = createSlice({
 	name: 'selectDate',
@@ -16,7 +16,7 @@ export const selectDateSlice = createSlice({
 			return new Date(newDate.getFullYear(),newDate.getMonth()-1,1).getTime();
 		},
 		setSelectDate(state, actions){
-			return actions.payload;
+			return state = actions.payload;
 		}
 	}
 });

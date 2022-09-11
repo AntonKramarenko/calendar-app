@@ -22,7 +22,6 @@ export const CalendarMonth = () => {
 		setMonthArr(createMonthArr(selectDate));
 	}, [ selectDate ]);
 
-
 	const filterEvents =(eventsArr:IEvent[]) =>{
 		if(monthArr.length){
 			const startMonthDay = monthArr[0][0];
@@ -33,7 +32,6 @@ export const CalendarMonth = () => {
 		}
 	};
 	
-
 	return (
 		<div  className='calendarMonth'>
 			<div className='calendarMonth__month'>

@@ -7,13 +7,13 @@ import { DatePicker } from '../ui/DatePicker';
 import './Header.scss';
 
 export const Header = () => {
-	const dispatch = useAppDispatch();
+	// const dispatch = useAppDispatch();
 
-	const date = new Date();
+	// const date = new Date();
 
-	useEffect(() => {
-		dispatch(setSelectDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime()));
-	}, []);
+	// useEffect(() => {
+	// 	dispatch(setSelectDate(new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime()));
+	// }, []);
 	return (
 		<div className='header'>
 			<AddEventButton/>
