@@ -44,7 +44,8 @@ export const AddEventWindow: React.FC = React.memo(() => {
 		const selectDate = new Date(selectDateArr[0], selectDateArr[1]-1, selectDateArr[2]);
 		const currentDate = new Date();
 
-		if(selectDate.getTime() < currentDate.getTime()){
+
+		if(selectDate.getTime() < new Date(currentDate.getFullYear(), currentDate.getMonth()).getTime()){
 			return setError('data', { type: 'custom', message: 'The selected date is in the past' });
 		}
 
