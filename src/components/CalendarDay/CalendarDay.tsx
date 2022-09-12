@@ -12,21 +12,21 @@ interface ICalendarDay{
 export const CalendarDay: React.FC<ICalendarDay> = React.memo(({thisDay,currentDate,events}) => {
 	const [ dayEvent, setDayEvent ] = useState<IEvent[]>([]);
 
-	const filterEvents = useMemo(() => events.filter(event => event.data === thisDay), [ events ]);
+	const filterEvents = useMemo(() => events.filter(event => event.data === thisDay), [ events,thisDay ]);
 
 	const date = useMemo(() => new Date(thisDay), [ thisDay ]);
-	const daynumber = date.getDate();
+	const dayNumber = date.getDate();
 	const nameDay = date.toLocaleDateString('en-US', { weekday: 'short' });; 
 	
 	useEffect(() => {
 		events.length ? setDayEvent(filterEvents) : setDayEvent([]);
-	}, [ events ]);
+	}, [ events,filterEvents ]);
 
 	return (
 		<li className={currentDate === thisDay ?'calendarDay calendarDay__today' : 'calendarDay'}>
 			<div className='calendarDay__info'>
 				<span className='calendarDay__nameDay'>{nameDay}</span>
-				<span className='calendarDay__day'>{daynumber}</span>
+				<span className='calendarDay__day'>{dayNumber}</span>
 			</div>
 			{dayEvent.length 
 				? <ul className='calendarDay__eventList'>

@@ -13,10 +13,10 @@ import './AddEventWindow.scss';
 export const AddEventWindow: React.FC = React.memo(() => {
 	const [ eventInfo, setInfo ] = useState<IEvent>();
 	const dispatch = useAppDispatch();
-	const events = useAppSelector(state => state.events);
 	const { register, handleSubmit, setError, setValue, formState: { errors } } = useForm();
 	const {pathname} = useLocation();
 	const navigate = useNavigate();
+	const events = useAppSelector(state => state.events);
 
 	const id = pathname.replace('/calendar/', '').replace('/calendar', '');
 	const curentDate = dayInString(new Date().getTime());
@@ -28,7 +28,7 @@ export const AddEventWindow: React.FC = React.memo(() => {
 		if(id.length){
 			setInfo(events.filter(event => event.id === parseInt(id))[0]);
 		}
-	}, [ ]);
+	}, [ curentDate.day, curentDate.month, curentDate.year, events, id, setValue ]);
 
 	useEffect(() => {
 		if(eventInfo){
@@ -37,7 +37,7 @@ export const AddEventWindow: React.FC = React.memo(() => {
 			setValue('description', eventInfo.description);
 			setValue('data', `${ date.year }-${ date.month }-${ date.day }`);
 		}
-	}, [ eventInfo ]);
+	}, [ eventInfo, setValue ]);
 	
 	const onSubmit = (data: any) =>{
 		const selectDateArr = data.data.split('-');

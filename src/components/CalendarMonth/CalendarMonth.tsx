@@ -19,11 +19,11 @@ export const CalendarMonth:React.FC = React.memo(() => {
 
 	useEffect(() => {
 		setCurrentMonthEvent(filterEventsArr);
-	}, [ monthArr,events ]);
+	}, [ monthArr,events,filterEventsArr ]);
 	
 	useEffect(() => {
 		setMonthArr(createMonth);
-	}, [ selectDate ]);
+	}, [ selectDate ,createMonth ]);
 
 	return (
 		<div  className='calendarMonth'>
