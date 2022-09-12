@@ -16,7 +16,7 @@ export const CalendarDay: React.FC<ICalendarDay> = React.memo(({thisDay,currentD
 
 	const date = useMemo(() => new Date(thisDay), [ thisDay ]);
 	const daynumber = date.getDate();
-	const nameDay = date.toLocaleDateString('en-US', { weekday: 'long' });; 
+	const nameDay = date.toLocaleDateString('en-US', { weekday: 'short' });; 
 	
 	useEffect(() => {
 		events.length ? setDayEvent(filterEvents) : setDayEvent([]);
