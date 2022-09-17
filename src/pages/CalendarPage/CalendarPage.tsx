@@ -6,19 +6,40 @@ import { setEvents } from '../../store/events';
 import { setSelectDate } from '../../store/selectDate';
 import './CalendarPage.scss';
 
+interface IData {
+	currentDateStorage: string,
+	eventStorage: string
+}
+
 export const CalendarPage:React.FC = React.memo(() => {	
 	const state = useAppSelector(state => state);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		const eventStorage = localStorage.getItem('calendarEvents');
-		const currentDateStorage = localStorage.getItem('calendarCurrentDate');
+		try {
+			const getData = (): Promise<IData> => {
+				return new Promise( function(resolve, reject)  {
+					// fetch('URL').then(response => response.json())
+					// 	.then(data => resolve(data))
+					// 	.catch(error =>reject(error));
 
-		if(eventStorage && currentDateStorage){
-			dispatch(setSelectDate(JSON.parse(currentDateStorage)));
-			dispatch(setEvents(JSON.parse(eventStorage)));
+					const eventStorage =  localStorage.getItem('calendarEvents');
+					const currentDateStorage = localStorage.getItem('calendarCurrentDate');
+
+					eventStorage && currentDateStorage 
+						? resolve({eventStorage,currentDateStorage}) 
+						: reject(new Error());
+				});
+			};
+
+			getData().then((data) => {
+				dispatch(setSelectDate(JSON.parse(data.currentDateStorage)));
+				dispatch(setEvents(JSON.parse(data.eventStorage)));
+			}).catch(error => {throw new Error('Save from localstore failed');});
+		} catch (error) {
+			throw new  Error('Loading eventis is error');
 		}
-	}, []);
+	}, [ dispatch ]);
 
 	useEffect(() => {
 		localStorage.setItem('calendarEvents', JSON.stringify(state.events));
