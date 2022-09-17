@@ -1,6 +1,6 @@
 import { IEvent } from '../types/types';
 
-export const filterEvents = (eventsArr:IEvent[],monthArr:any ) => {
+export const filterEvents = (eventsArr:IEvent[],monthArr:[number[]] ) => {
 	if(monthArr.length){
 		const startMonthDay = monthArr[0][0];
 		const lastMonthDay = monthArr[monthArr.length-1][6];

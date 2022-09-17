@@ -8,16 +8,21 @@ import './DatePicker.scss';
 const monthNames = [ 'January', 'February', 'March', 'April', 'May', 'June','July', 'August', 'September', 'October', 'November', 'December' ];
 const years = Array(10).fill(new Date().getFullYear()).map((item,index) => item + index);;
 
+interface IInputs {
+	month:string,
+	year: string
+}
+
 export const DatePicker:React.FC = React.memo(() => {
 	const [ isVisible,setVisible ] = useState(false);
-	const { register, watch, handleSubmit} = useForm();
+	const { register, handleSubmit} = useForm<IInputs>();
 	const selectDate = useAppSelector(state => state.selectDate);
 	const dispatch = useAppDispatch();
 	const selectMonth = new Date(selectDate).getMonth();
 
-	const onSubmit = (data:any) => {
+	const onSubmit = (data:IInputs) => {
 		const indexOfMonth = monthNames.indexOf(data.month);
-		const dateTime = new Date(data.year, indexOfMonth).getTime();
+		const dateTime = new Date(parseInt(data.year), indexOfMonth).getTime();
 		dispatch(setSelectDate(dateTime));
 		setVisible(false);
 	};

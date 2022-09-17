@@ -4,12 +4,16 @@ import { useAppDispatch } from '../../store';
 import { isVisibleModal } from '../../store/modalWindow';
 import './ModalWindow.scss';
 
-export const ModalWindow = ({children}:any) => {
+interface IChildren {
+	children : React.ReactNode
+}
+
+export const ModalWindow:React.FC<IChildren> = ({children}) => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
 
-	const handleClick = (e:any)=> {
+	const handleClick = (e:React.MouseEvent<HTMLElement>)=> {
 		e.preventDefault();
 		dispatch(isVisibleModal());
 		navigate('/calendar');

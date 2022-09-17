@@ -1,12 +1,14 @@
+
+
 export const createMonthArr =(data:number)=>{
 	const datesArr = generateDates(data);
 	const monthArr  = generateWeeks(datesArr);
 	return monthArr;
 };
 
-const generateWeeks = (datesArr: number[]) =>{
-	const month:any = [];
-	let week = [];
+const generateWeeks = (datesArr: number[]):[number[]]  =>{
+	const month:[number[]] = [ [] ];
+	let week:number[] = [];
 
 	for (let i = 0; i < datesArr.length; i++) {
 		if(i > 1 && i% 7 === 0){
@@ -24,7 +26,7 @@ const generateWeeks = (datesArr: number[]) =>{
 	return validateWeeks(month);
 };
 
-const validateWeeks = (monthArr:[]) =>{
+const validateWeeks = (monthArr:[number[]]) =>{
 	const lastWeek:number[] = monthArr[monthArr.length-1];
 	const lastDay = new Date(lastWeek[lastWeek.length-1]);
 
@@ -34,6 +36,10 @@ const validateWeeks = (monthArr:[]) =>{
 
 	for (let i = lastWeek.length; i < 7; i++) {
 		lastWeek.push(new Date(year,month, daysInMonth+i+1 ).getTime());
+	}
+
+	if(monthArr[0].length ===0){
+		monthArr.shift();
 	}
     
 	return monthArr;

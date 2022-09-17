@@ -8,17 +8,19 @@ import './CalendarMonth.scss';
 import { filterEvents } from '../../helpers/filterEvents';
 
 export const CalendarMonth:React.FC = React.memo(() => {
-	const [ monthArr, setMonthArr ] = useState([]);
+	const [ monthArr, setMonthArr ] = useState<[number[]]>();
 	const [ currentMonthEvent, setCurrentMonthEvent  ] = useState<IEvent[]>([]);
 	const selectDate = useAppSelector(state => state.selectDate);
 	const events = useAppSelector(state => state.events);
 	const currentDate = dayMiliseconds();
 	
 	const createMonth = useMemo(() => createMonthArr(selectDate), [ selectDate ]);
-	const filterEventsArr = useMemo(() => filterEvents(events,monthArr ), [ events,monthArr ]);
+	const filterEventsArr = useMemo(() =>monthArr &&  filterEvents(events,monthArr ), [ events,monthArr ]);
 
 	useEffect(() => {
-		setCurrentMonthEvent(filterEventsArr);
+		if(filterEventsArr){
+			setCurrentMonthEvent(filterEventsArr);
+		}
 	}, [ monthArr,events,filterEventsArr ]);
 	
 	useEffect(() => {
@@ -28,7 +30,7 @@ export const CalendarMonth:React.FC = React.memo(() => {
 	return (
 		<div  className='calendarMonth'>
 			<div className='calendarMonth__month'>
-				{monthArr.map((weeks:number[], index) => {
+				{monthArr && monthArr.map((weeks:number[], index) => {
 					return (
 						<ul className='calendarMonth__week' key={index}>
 							{weeks.map((day:number) => <CalendarDay thisDay={day} key={day} currentDate={currentDate} events={currentMonthEvent}/> )}

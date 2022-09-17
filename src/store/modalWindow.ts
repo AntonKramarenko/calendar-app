@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState:any = false;
+const initialState:boolean = false;
 
 export const modalwindowSlice = createSlice({
 	name: 'Modalwindow',

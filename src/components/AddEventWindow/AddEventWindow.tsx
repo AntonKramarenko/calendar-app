@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { IoTrashOutline } from 'react-icons/io5';
 import { useAppDispatch, useAppSelector } from '../../store';
@@ -9,11 +9,18 @@ import { dayInString } from '../../helpers/dayInString';
 import { IEvent } from '../../types/types';
 import './AddEventWindow.scss';
 
+interface Inputs {
+	data: string, 
+	description: string
+	time: string,
+	title:string
+}
+
 
 export const AddEventWindow: React.FC = React.memo(() => {
 	const [ eventInfo, setInfo ] = useState<IEvent>();
 	const dispatch = useAppDispatch();
-	const { register, handleSubmit, setError, setValue, formState: { errors } } = useForm();
+	const { register, handleSubmit, setError, setValue, formState: { errors } } = useForm<Inputs>();
 	const {pathname} = useLocation();
 	const navigate = useNavigate();
 	const events = useAppSelector(state => state.events);
@@ -39,9 +46,9 @@ export const AddEventWindow: React.FC = React.memo(() => {
 		}
 	}, [ eventInfo, setValue ]);
 	
-	const onSubmit = (data: any) =>{
-		const selectDateArr = data.data.split('-');
-		const selectDate = new Date(selectDateArr[0], selectDateArr[1]-1, selectDateArr[2]);
+	const onSubmit: SubmitHandler<Inputs>  = (data:Inputs): void =>{
+		const selectDateArr:string[] = data.data.split('-');
+		const selectDate = new Date(parseInt(selectDateArr[0]), parseInt(selectDateArr[1])-1, parseInt(selectDateArr[2]));
 		const currentDate = new Date();
 
 
